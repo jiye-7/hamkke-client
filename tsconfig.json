@@ -13,7 +13,7 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"] // @/로 시작하는 경로를 프로젝트 루트 디렉토리로 매핑
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
