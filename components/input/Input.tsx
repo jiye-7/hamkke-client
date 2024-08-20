@@ -6,12 +6,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   defaultValue?: string;
 }
 
-const CustomInput = ({
-  type,
-  className,
-  defaultValue,
-  ...props
-}: InputProps) => {
+const Input = ({ type, className, defaultValue, ...props }: InputProps) => {
   return (
     <input
       type={type}
@@ -22,4 +17,4 @@ const CustomInput = ({
   );
 };
 
-export default CustomInput;
+export default Input;
