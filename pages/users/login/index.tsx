@@ -1,4 +1,4 @@
-import LoginPage from "@/container/user/login/Login";
+import LoginPage from "@/layouts/user/login/Login";
 
 const Login = () => {
   return <LoginPage />;

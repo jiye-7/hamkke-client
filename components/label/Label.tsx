@@ -1,14 +1,14 @@
 import { LabelHTMLAttributes } from "react";
 
 interface ILableProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  content: string;
-  htmlFor: string;
+  label: string;
+  id: string;
 }
 
-const Label = ({ content, htmlFor, ...props }: ILableProps) => {
+const Label = ({ label, id, ...props }: ILableProps) => {
   return (
-    <label htmlFor={htmlFor} {...props}>
-      {content}
+    <label htmlFor={id} {...props}>
+      {label}
     </label>
   );
 };
