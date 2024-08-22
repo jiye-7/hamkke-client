@@ -22,8 +22,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
  */
 
 const LoginSchema = z.object({
-	email: z.string().email(),
-	password: z.string().min(8),
+	email: z.string().email({
+		message: '유효한 이메일 주소를 입력해주세요.',
+	}),
+	password: z
+		.string()
+		.min(8, {
+			message: '비밀번호는 최소 8자 이상이어야 합니다.',
+		})
+		.regex(/^(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$/, {
+			message:
+				'비밀번호는 8자 이상, 특수문자 1개, 영어 대소문자 중 하나를 포함해야 합니다.',
+		}),
 });
 
 type FormValues = z.infer<typeof LoginSchema>;
