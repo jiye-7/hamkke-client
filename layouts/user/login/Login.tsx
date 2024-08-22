@@ -1,10 +1,12 @@
-import { SubmitHandler, useForm, Resolver } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import Copyright from '@/components/copyright/Copyright';
 import Header from '@/components/header/Header';
 import Logo from '@/public/assets/hamkke_logo.png';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 /**
  * 입력창
@@ -19,10 +21,17 @@ import Logo from '@/public/assets/hamkke_logo.png';
  * - register: input 태그에 연결, register 함수를 호출하여 입력을 hook에 등록
  */
 
-type FormValues = {
+const LoginSchema = z.object({
+	email: z.string().email(),
+	password: z.string().min(8),
+});
+
+type FormValues = z.infer<typeof LoginSchema>;
+
+/* type FormValues = {
 	email: string;
 	password: string;
-};
+}; */
 
 const LoginPage = () => {
 	const {
@@ -35,6 +44,8 @@ const LoginPage = () => {
 			email: '',
 			password: '',
 		},
+		// zodResolver를 사용해서 스키마를 react hook 양식에 연결
+		resolver: zodResolver(LoginSchema),
 	});
 
 	// const emailWatch = watch('email'); // or watch()
@@ -80,18 +91,7 @@ const LoginPage = () => {
 							Email
 						</label>
 						<input
-							{...register('email', {
-								required: '이메일을 입력해주세요.',
-								// required: true를 주게되면 아래 errors.email을 했을 때 아무 문구도 출력되지 않음
-								// regExp: '',
-								validate: (value) => {
-									if (!value.includes('@')) {
-										return '이메일에는 @가 반드시 들어가야합니다.';
-									}
-									// 입력이 유효한 경우
-									return true;
-								},
-							})}
+							{...register('email')}
 							className="block w-full rounded-md border-spacing-0 py-1.5 text-grey-900 px-1.5 shadow-lg ring-1 ring-inset ring-grey-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="email"
 						/>
@@ -110,13 +110,7 @@ const LoginPage = () => {
 							Password
 						</label>
 						<input
-							{...register('password', {
-								required: '비밀번호를 입력해주세요.',
-								minLength: {
-									value: 8,
-									message: '비밀번호는 8자이상 입력해주셔야합니다.',
-								},
-							})}
+							{...register('password')}
 							className="block w-full rounded-md border-spacing-0 py-1.5 text-grey-900 px-1.5 shadow-lg ring-1 ring-inset ring-grey-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="password"
 							type="password"
