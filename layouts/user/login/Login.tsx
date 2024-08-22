@@ -1,12 +1,11 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import Link from 'next/link';
-import Image from 'next/image';
-
-import Copyright from '@/components/copyright/Copyright';
-import Header from '@/components/header/Header';
-import Logo from '@/public/assets/hamkke_logo.png';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
+
+import Logo from '@/components/logo/Logo';
+import Header from '@/components/header/Header';
+import Copyright from '@/components/copyright/Copyright';
 
 /**
  * 입력창
@@ -20,7 +19,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
  * - handleSubmit: onSubmit을 호출하기 전에 입력의 유효성을 검사하는 메서드
  * - register: input 태그에 연결, register 함수를 호출하여 입력을 hook에 등록
  */
-
 const LoginSchema = z.object({
 	email: z.string().email({
 		message: '유효한 이메일 주소를 입력해주세요.',
@@ -38,11 +36,6 @@ const LoginSchema = z.object({
 
 type FormValues = z.infer<typeof LoginSchema>;
 
-/* type FormValues = {
-	email: string;
-	password: string;
-}; */
-
 const LoginPage = () => {
 	const {
 		register,
@@ -58,8 +51,6 @@ const LoginPage = () => {
 		resolver: zodResolver(LoginSchema),
 	});
 
-	// const emailWatch = watch('email'); // or watch()
-
 	// 서버에 요청 보내기
 	// 요청이 처리되는 동안 버튼 비활성화 - 사용자 피드백
 	const onSubmit: SubmitHandler<FormValues> = async (data, errors) => {
@@ -69,8 +60,7 @@ const LoginPage = () => {
 			console.log(errors);
 			throw new Error();
 		} catch (error) {
-			// 특정 filed만 줄 경우 'email'
-			// 특정 filed가 아닌 모든 필드에 적용하고 싶을 땐 'root'
+			// 특정 filed만 줄 경우 'email' / 특정 filed가 아닌 모든 필드에 적용하고 싶을 땐 'root'
 			setError('root', {
 				// 서버에서 보내준 에러 응답값 활용하기
 				// message: '존재하지 않는 이메일입니다.', // 특정 필드에 표기
@@ -80,14 +70,12 @@ const LoginPage = () => {
 	};
 
 	return (
-		<div className="flex flex-col min-h-full justify-center px-6 py-12 lg:px-8">
+		<div className="flex flex-col min-h-screen justify-center px-6 py-12 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
-				<Link href="/">
-					<Image src={Logo} alt="hamkke logo" className="mx-auto w-auto h-7" />
-				</Link>
+				<Logo />
 				<Header
 					className="mt-10 text-center text-xl font-bold leading-9 tracking-tight text-gray-800"
-					text="Sign in to your account"
+					text="로그인 정보 입력"
 				/>
 			</div>
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -98,7 +86,7 @@ const LoginPage = () => {
 							htmlFor="email"
 							className="block text-sm font-semibold leading-6 text-gray-900"
 						>
-							Email
+							이메일
 						</label>
 						<input
 							{...register('email')}
@@ -117,7 +105,7 @@ const LoginPage = () => {
 							htmlFor="password"
 							className="block text-sm font-semibold leading-6 text-gray-900"
 						>
-							Password
+							비밀번호
 						</label>
 						<input
 							{...register('password')}
@@ -138,13 +126,12 @@ const LoginPage = () => {
 							</p>
 						)}
 					</div>
-					<div className="flex justify-around  pt-6">
+					<div className="flex justify-around items-center pt-6">
 						<p className="text-sm text-gray-600">아직 회원이 아니신가요?</p>
-						<Link
-							href={'/users/signup'}
-							className="text-sm font-bold text-blue-600 hover:text-blue-300"
-						>
-							회원가입
+						<Link href={'/users/signup'}>
+							<span className="text-sm font-bold text-blue-600 hover:text-blue-300">
+								회원가입
+							</span>
 						</Link>
 					</div>
 					<div>
@@ -153,7 +140,7 @@ const LoginPage = () => {
 							className={`flex w-full justify-center ${isSubmitting ? 'bg-slate-400' : 'bg-yellow-400'} rounded-md px-3 py-2 text-sm font-semibold leading-6 text-white shadow-md ${!isSubmitting && 'hover:bg-yellow-300'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600 my-16`}
 							disabled={isSubmitting}
 						>
-							{isSubmitting ? 'Loading' : 'Login'}
+							{isSubmitting ? '요청중' : '로그인'}
 						</button>
 					</div>
 				</form>

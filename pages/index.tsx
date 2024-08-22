@@ -1,3 +1,9 @@
+import Header from '@/components/header/Header';
+
 export default function Home() {
-  return <main>Hello Hamkke</main>;
+	return (
+		<main>
+			<Header text="Hello Hamkke Main Page" />
+		</main>
+	);
 }
