@@ -1,11 +1,11 @@
+import SignUpPage from '@/layouts/user/signUp/SignUpPage';
+
 const SignUp = () => {
-  /**
-   * 입력창
-   *  - 이메일
-   *  - 비밀번호
-   *  - 닉네임
-   */
-  return <div>Sign Up Page</div>;
+	return (
+		<div>
+			<SignUpPage />
+		</div>
+	);
 };
 
 export default SignUp;

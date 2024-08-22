@@ -1,7 +1,7 @@
-import LoginPage from "@/layouts/user/login/Login";
+import LoginPage from '@/layouts/user/login/Login';
 
 const Login = () => {
-  return <LoginPage />;
+	return <LoginPage />;
 };
 
 export default Login;

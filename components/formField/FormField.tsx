@@ -16,7 +16,7 @@ const FormFiled = ({
 	label,
 	labelClassName,
 	inputClassName,
-	...inputProps // 나머지 input 속성들
+	...inputProps
 }: IFormFiledProps) => {
 	const defaultLabelClassName =
 		'block text-sm font-semibold leading-6 text-gray-900';
